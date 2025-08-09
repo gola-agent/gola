@@ -20,7 +20,7 @@ enum RunMode {
 }
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about = "Gola LLM Agent Runtime")]
+#[clap(name = "Gola", author, version = "0.1.0", about = "Gola LLM Agent Runtime")]
 struct Cli {
     #[clap(subcommand)]
     command: Option<Commands>,
