@@ -62,8 +62,43 @@ jobs:
           sudo apt-get update -y
           sudo apt-get install -y musl-tools
 
+      - name: Setup macOS build environment
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-14'
+        run: |
+          # Remove any existing dynamic xz/lzma libraries to force static linking
+          if [ -d "/opt/homebrew/opt/xz" ]; then
+            echo "Found Homebrew xz, will configure for static linking"
+          fi
+          if [ -d "/usr/local/opt/xz" ]; then
+            echo "Found local xz, will configure for static linking"
+          fi
+
       - name: Build binary
-        run: cargo build --verbose --release --target ${{ matrix.target }} --package gola-cli --bin gola
+        env:
+          CARGO_TARGET_X86_64_APPLE_DARWIN_RUSTFLAGS: "-C link-arg=-mmacosx-version-min=10.15"
+          CARGO_TARGET_AARCH64_APPLE_DARWIN_RUSTFLAGS: "-C link-arg=-mmacosx-version-min=11.0"
+          LZMA_API_STATIC: "1"
+        run: |
+          # For macOS, we need to ensure static linking of certain libraries
+          if [[ "${{ matrix.os }}" == "macos-latest" ]] || [[ "${{ matrix.os }}" == "macos-14" ]]; then
+            # Set feature flags to prefer static linking
+            export LZMA_API_STATIC=1
+            export CARGO_FEATURE_STATIC=1
+            # Disable lzma feature in zip crate if possible
+            export CARGO_NO_DEFAULT_FEATURES=1
+          fi
+          cargo build --verbose --release --target ${{ matrix.target }} --package gola-cli --bin gola
+
+      - name: Check dynamic dependencies (macOS only)
+        if: matrix.os == 'macos-latest' || matrix.os == 'macos-14'
+        run: |
+          echo "=== Checking dynamic library dependencies ==="
+          otool -L ./target/${{ matrix.target }}/release/gola || true
+          echo ""
+          echo "=== Checking for problematic dependencies ==="
+          if otool -L ./target/${{ matrix.target }}/release/gola | grep -E "(liblzma|/opt/homebrew|/usr/local)"; then
+            echo "WARNING: Found dynamic dependencies that may cause issues with code signing"
+          fi
 
       - name: Import Apple Certificate (macOS only)
         if: matrix.os == 'macos-latest' || matrix.os == 'macos-14'
