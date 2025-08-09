@@ -1,0 +1,17 @@
+# Minimal configuration for basic MCP test scenario
+# Tests LLM + simple MCP server integration (should fail without uvx)
+
+agent:
+  name: "Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+mcp_servers:
+  - name: "time"
+    command:
+      run: "uvx"
+      args: ["mcp-server-time"]

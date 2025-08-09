@@ -1,0 +1,38 @@
+testuser/gola-config:
+  name: "gola-config"
+  owner: "testuser"
+  description: "Test repository for GitHub mock integration"
+  default_branch: "main"
+  private: false
+  branches:
+    - "main"
+  tags:
+    - "v1.0.0"
+  files:
+    gola.yaml:
+      content: |
+        agent:
+          name: "GitHub Mock Integration Test Agent"
+
+        llm:
+          provider: openai
+          model: "gpt-4o-mini"
+          auth:
+            api_key_env: "OPENAI_API_KEY"
+      encoding: "utf-8"
+    prompts/system.md:
+      content: |
+        # System Prompt
+
+        You are a helpful AI assistant for testing GitHub integration with gola.
+        
+        Your role is to respond to user queries in a friendly and informative manner.
+      encoding: "utf-8"
+    README.md:
+      content: |
+        # Gola Config Repository
+
+        This is a test repository for GitHub mock integration testing.
+        
+        It contains a minimal gola.yaml configuration that relies on environment variable auto-detection for LLM provider configuration.
+      encoding: "utf-8"

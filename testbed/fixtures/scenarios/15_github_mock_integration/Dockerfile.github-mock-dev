@@ -1,0 +1,38 @@
+# Multi-stage build for github-mock
+FROM rust:1.70-alpine AS builder
+
+# Install musl dev tools for static linking
+RUN apk add --no-cache musl-dev pkgconfig openssl-dev
+
+# Set working directory
+WORKDIR /build
+
+# Copy the entire workspace
+COPY . .
+
+# Build github-mock binary
+RUN cargo build --release --target x86_64-unknown-linux-musl --bin github-mock
+
+# Runtime stage
+FROM alpine:latest
+
+# Install curl for health checks
+RUN apk update && apk add --no-cache \
+    ca-certificates \
+    curl
+
+# Create directories
+RUN mkdir -p /app /usr/local/bin
+
+# Copy github-mock binary from builder stage
+COPY --from=builder /build/target/x86_64-unknown-linux-musl/release/github-mock /usr/local/bin/github-mock
+RUN chmod +x /usr/local/bin/github-mock
+
+# Set working directory
+WORKDIR /app
+
+# Expose port
+EXPOSE 8080
+
+# Run the github-mock server
+CMD ["/usr/local/bin/github-mock"]

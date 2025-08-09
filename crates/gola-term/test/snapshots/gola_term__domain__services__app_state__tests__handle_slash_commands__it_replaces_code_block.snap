@@ -1,0 +1,10 @@
+---
+source: crates/gola-term/src/domain/services/app_state_test.rs
+expression: codeblock
+---
+'''
+fn print_numbers() {
+    for i in 0..=0 {
+        println!("{i}");
+    }
+}'''

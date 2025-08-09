@@ -1,0 +1,18 @@
+# .dockerignore
+
+# Exclude all git directories
+**/.git
+
+# Exclude all rust build artifact directories, wherever they are.
+# The `**/` pattern is crucial for matching nested directories.
+**/target/
+
+# Exclude IDE and editor specific files
+**/.idea/
+**/.vscode/
+
+# Exclude other cache or temporary directories
+**/.cache/
+integration_tests/target-cache/
+integration_tests/cargo-registry-cache/
+integration_tests/cargo-git-cache/

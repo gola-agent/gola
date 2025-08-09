@@ -1,0 +1,17 @@
+# Minimal configuration for NPM MCP success test scenario
+# Tests MCP server initialization with npm/npx using traditional command format
+
+agent:
+  name: "NPM MCP Success Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+mcp_servers:
+  - name: "filesystem"
+    command:
+      run: "npx"
+      args: ["-y", "@modelcontextprotocol/server-filesystem", "/test/mcp-files"]

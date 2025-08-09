@@ -1,0 +1,6 @@
+# Minimal configuration for Anthropic auto-detection test
+# Only agent name is required - all other fields will use defaults
+# LLM provider will be auto-detected from ANTHROPIC_API_KEY environment variable
+
+agent:
+  name: "Anthropic Auto-Detection Test Agent"

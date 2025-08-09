@@ -1,0 +1,16 @@
+description: "Tests that gola can discover and run configuration from a mock GitHub repository"
+
+command:  
+  - "gola"
+  - "run"
+  - "--config"
+  - "github:testuser/gola-config"
+  - "--bind-addr"
+  - "0.0.0.0:3001"
+  - "--server-only"
+
+long_running:
+  startup_timeout_ms: 15000
+
+assertions:
+  stderr_contains: "Starting Gola server"

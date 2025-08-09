@@ -1,0 +1,17 @@
+# Minimal configuration for NPM MCP failure test scenario
+# Tests MCP server failure when npm/npx is not available
+
+agent:
+  name: "NPM MCP Fail Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+mcp_servers:
+  - name: "filesystem"
+    command:
+      run: "npx"
+      args: ["-y", "@modelcontextprotocol/server-filesystem", "/test/mcp-files"]

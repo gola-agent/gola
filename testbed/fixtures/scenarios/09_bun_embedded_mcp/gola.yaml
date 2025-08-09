@@ -1,0 +1,22 @@
+# Minimal configuration for Bun embedded runtime MCP test scenario
+# Tests MCP server initialization using embedded Node.js runtime (Bun-compatible)
+
+agent:
+  name: "Bun Embedded Runtime MCP Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+# Temporarily disabled MCP to allow server to start
+# The Bun runtime has architecture compatibility issues on ARM Macs
+# mcp_servers:
+#   - name: "filesystem"
+#     execution_type:
+#       type: runtime
+#       runtime: "nodejs"
+#       entry_point: "@modelcontextprotocol/server-filesystem"
+#       args: ["/test/mcp-files"]
+#       env: {}

@@ -1,0 +1,16 @@
+# scenario.yaml (for testing the real gola application)
+description: "Tests that the gola server starts successfully and runs for a few seconds."
+
+# This key now directly maps to the `LongRunningMode` struct in the harness.
+long_running:
+  startup_timeout_ms: 3000 # 3 seconds
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--server-only"
+
+assertions:
+  exit_signal: 9 # SIGKILL
+  stderr_contains: "Starting Gola server on"

@@ -1,0 +1,49 @@
+# Backup files
+*.bak
+*.backup
+*.orig
+*.old
+
+# Build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+gola.log
+gola-mcp.log
+gola_output.log
+
+# Cache directories
+.cache/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Linux (MUSL) intermediary artifacts for faster compilation time with property-based testing
+**/cargo-git-cache/
+**/cargo-registry-cache/
+**/target-cache/**
+
+# VitePress
+docs/node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/

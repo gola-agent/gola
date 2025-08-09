@@ -1,0 +1,19 @@
+[package]
+name = "gola-server"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+
+[[bin]]
+name = "gola-server"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = { workspace = true }
+clap = { workspace = true }
+gola-core = { path = "../gola-core" }
+gola-ag-ui-server = { path = "../gola-ag-ui-server" }
+log = { workspace = true }
+env_logger = { workspace = true }
+tokio = { workspace = true }
+dirs = { workspace = true }

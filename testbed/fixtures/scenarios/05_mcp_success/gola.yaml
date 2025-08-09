@@ -1,0 +1,17 @@
+# Minimal configuration for MCP success test scenario
+# Tests successful MCP server initialization with uvx installed
+
+agent:
+  name: "MCP Success Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+mcp_servers:
+  - name: "time"
+    command:
+      run: "uvx"
+      args: ["mcp-server-time", "--local-timezone", "UTC"]

@@ -1,0 +1,41 @@
+services:
+  github-mock:
+    image: github-mock:latest
+    ports:
+      - "8443:443"
+    volumes:
+      - ./fixtures:/app/fixtures:ro
+    healthcheck:
+      test: ["CMD", "curl", "-k", "-f", "https://localhost:443/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    networks:
+      gola-test-network:
+        aliases:
+          - github.com
+    extra_hosts:
+      - "github.com:127.0.0.1"
+
+  gola-test:
+    build:
+      context: ../../../..
+      dockerfile: testbed/fixtures/scenarios/15_github_mock_integration/Dockerfile.gola-test
+    depends_on:
+      github-mock:
+        condition: service_healthy
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - GOLA_ACCEPT_INVALID_CERTS=1
+    volumes:
+      - ./scenario.yaml:/test/scenario.yaml:ro
+    networks:
+      - gola-test-network
+    command: ["/usr/local/bin/harness", "/test/scenario.yaml"]
+
+networks:
+  gola-test-network:
+    driver: bridge

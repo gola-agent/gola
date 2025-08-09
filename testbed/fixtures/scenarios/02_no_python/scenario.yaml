@@ -1,0 +1,15 @@
+# scenario.yaml
+# Defines a test case for running gola in an environment where the python
+# interpreter is not available.
+description: "Tests that gola fails gracefully if python is not in the PATH."
+
+# The command to execute.
+command:
+  - "/usr/local/bin/gola"
+  - "run"
+
+# In this scenario, a non-zero exit code is a success.
+# We also check stderr to ensure the error message is informative.
+assertions:
+  exit_code: 1 # Expecting a failure exit code
+  stderr_contains: "Failed to read config file gola.yaml"

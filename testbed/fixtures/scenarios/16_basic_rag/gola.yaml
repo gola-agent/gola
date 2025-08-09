@@ -1,0 +1,48 @@
+# Basic RAG configuration test scenario
+# Tests that the gola server starts successfully with RAG enabled using simple embeddings
+
+agent:
+  name: "RAG Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+
+# RAG configuration with Simple provider (hash-based for testing)
+rag:
+  enabled: true
+  embeddings:
+    provider: simple  # Use simple hash-based embeddings for testing
+    model: "simple-hash-model"
+    dimension: 384
+    batch_size: 10
+    auth:
+      api_key: null
+      api_key_env: null
+  text_processing:
+    chunk_size: 500
+    chunk_overlap: 100
+    splitter_type: basic
+  vector_store:
+    store_type: inmemory
+    persistence: null
+  document_sources:
+    - source_type:
+        type: files
+        paths:
+          - "documents/rust_programming.md"
+          - "documents/rag_systems.md"
+          - "documents/software_architecture.txt"
+          - "documents/database_concepts.json"
+          - "documents/machine_learning_basics.py"
+  retrieval:
+    top_k: 3
+    similarity_threshold: 0.7
+  embedding_cache:
+    max_size: 1000
+    persistent: false
+    cache_file_path: null
+    compress: false
+    eviction_strategy: LRU

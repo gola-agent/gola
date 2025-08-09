@@ -1,0 +1,16 @@
+---
+source: crates/gola-term/src/configuration/config_test.rs
+expression: res
+---
+'''
+# The editor to integrate with. [possible values: neovim, clipboard, none]
+editor = "clipboard"
+
+# Gola Agent UI URL when using the Gola backend.
+gola-ag-uiurl = "http://localhost:3001"
+
+# Sets code syntax highlighting theme. [possible values: base16-github, base16-monokai, base16-one-light, base16-onedark, base16-seti]
+theme = "base16-onedark"
+
+# Absolute path to a TextMate tmTheme to use for code syntax highlighting.
+# theme-file = ""'''

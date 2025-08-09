@@ -1,0 +1,6 @@
+# Minimal configuration for Gemini auto-detection test
+# Only agent name is required - all other fields will use defaults
+# LLM provider will be auto-detected from GEMINI_API_KEY environment variable
+
+agent:
+  name: "Gemini Auto-Detection Test Agent"

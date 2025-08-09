@@ -1,0 +1,11 @@
+# Minimal configuration for Gemini LLM test scenario
+# Tests Google Gemini 2.5 Flash integration without MCP servers
+
+agent:
+  name: "Google Gemini 2.5 Flash Test Agent"
+
+llm:
+  provider: gemini
+  model: "gemini-2.5-flash"
+  auth:
+    api_key_env: "GEMINI_API_KEY"

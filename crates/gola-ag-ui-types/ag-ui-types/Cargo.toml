@@ -1,0 +1,18 @@
+[package]
+name = "ag-ui-types"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+description = "Rust types for the ag-ui specification"
+license = "MIT"
+repository = "https://github.com/your-org/gola-private"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+chrono = { workspace = true }
+uuid = { workspace = true }
+thiserror = { workspace = true }
+
+[dev-dependencies]
+serde_json = { workspace = true }

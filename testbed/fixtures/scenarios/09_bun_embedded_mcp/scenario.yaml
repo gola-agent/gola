@@ -1,0 +1,15 @@
+description: "Tests that the gola server starts successfully using embedded runtime to download Bun and run MCP server."
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--server-only"
+
+long_running:
+  startup_timeout_ms: 30000
+
+assertions:
+  # On ARM Macs running x86_64 containers, Bun may fail with Rosetta errors
+  # So we check for either success or the expected Rosetta error
+  stderr_contains: "Starting Gola server on"

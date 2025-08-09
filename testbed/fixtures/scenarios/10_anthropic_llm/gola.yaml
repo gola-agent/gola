@@ -1,0 +1,11 @@
+# Minimal configuration for Anthropic LLM test scenario
+# Tests Anthropic Claude Sonnet 4 integration without MCP servers
+
+agent:
+  name: "Anthropic Claude Sonnet 4 Test Agent"
+
+llm:
+  provider: anthropic
+  model: "claude-sonnet-4-20250514"
+  auth:
+    api_key_env: "ANTHROPIC_API_KEY"

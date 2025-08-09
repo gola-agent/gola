@@ -1,0 +1,11 @@
+description: "Tests that the gola server fails to start when npm/npx dependencies are missing."
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--server-only"
+
+assertions:
+  exit_code: 1
+  stderr_contains: "Failed to initialize MCP server"

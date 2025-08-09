@@ -1,0 +1,60 @@
+[package]
+name = "gola-core"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+description = "Core library for the Gola agent framework"
+
+[dependencies]
+gola-ag-ui-server = { path = "../gola-ag-ui-server", optional = true }
+gola-ag-ui-types = { path = "../gola-ag-ui-types" } # ag-ui-types is always needed for core types like Message
+tokio = { workspace = true }
+async-trait = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+toml = "0.8"
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+regex = { workspace = true }
+reqwest = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+sha2 = { workspace = true }
+jsonschema = { workspace = true }
+urlencoding = { workspace = true }
+bollard = { workspace = true }
+tempfile = { workspace = true }
+futures-util = { workspace = true }
+tar = "0.4"
+flate2 = "1.0"
+dirs = { workspace = true }
+rmcp = { workspace = true, features = ["client", "transport-child-process"] }
+async-stream = { workspace = true, optional = true }
+bincode = { workspace = true }
+tiktoken-rs = "0.5.8"
+
+tiktoken = "1.0.1"
+zip = "4.3.0"
+dialoguer = "0.11.0"
+which = "8.0.0"
+async-compression = { version = "0.4", features = ["tokio", "gzip"] }
+tokio-tar = "0.3"
+
+[lib]
+name = "gola_core"
+path = "src/lib.rs"
+
+[dev-dependencies]
+axum = { workspace = true }
+clap = { workspace = true }
+hyper = { workspace = true }
+tempfile = { workspace = true }
+futures = "0.3"
+serial_test = "3.0"
+
+[features]
+default = ["ag_ui_handler_feature"]
+ag_ui_handler_feature = ["dep:gola-ag-ui-server", "dep:async-stream"]

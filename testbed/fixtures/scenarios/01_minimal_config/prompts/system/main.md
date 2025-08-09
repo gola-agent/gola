@@ -1,0 +1,1 @@
+You are a minimal test assistant for validating basic Gola functionality.

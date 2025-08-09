@@ -1,0 +1,26 @@
+FROM alpine:latest
+
+# Install dependencies  
+RUN apk update && apk add --no-cache \
+    ca-certificates \
+    curl \
+    bind-tools
+
+# Create directories
+RUN mkdir -p /test /usr/local/bin
+
+# Copy binaries (built from target-cache)
+COPY target-cache/x86_64-unknown-linux-musl/release/gola /usr/local/bin/gola
+COPY target-cache/x86_64-unknown-linux-musl/release/gola-test-harness /usr/local/bin/harness
+
+# Make binaries executable
+RUN chmod +x /usr/local/bin/gola
+RUN chmod +x /usr/local/bin/harness
+
+# Note: github.com will be resolved to github-mock via docker network alias
+# This is handled in docker-compose.yml
+
+# Set working directory
+WORKDIR /test
+
+# Default command will be overridden by docker-compose

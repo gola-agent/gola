@@ -1,0 +1,11 @@
+# Minimal configuration for prompt-only test scenario
+# Tests LLM integration with custom prompts (no MCP servers)
+
+agent:
+  name: "Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"

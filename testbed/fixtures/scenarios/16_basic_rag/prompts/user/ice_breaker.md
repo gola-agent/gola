@@ -1,0 +1,1 @@
+Hello! I have uploaded several technical documents to your knowledge base. Can you tell me what topics are covered in these documents? Then, based on the knowledge base, explain the key features of Rust programming language.

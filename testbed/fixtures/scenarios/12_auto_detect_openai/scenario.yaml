@@ -1,0 +1,13 @@
+description: "Tests that the gola server automatically detects OpenAI LLM provider from OPENAI_API_KEY environment variable with minimal configuration."
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--server-only"
+
+long_running:
+  startup_timeout_ms: 10000
+
+assertions:
+  stderr_contains: "GolaAgentHandler created."

@@ -1,0 +1,43 @@
+Software Architecture Principles and Patterns
+
+Software architecture is the high-level structure of a software system, defining the organization of components and their relationships. Good architecture is crucial for maintainability, scalability, and reliability.
+
+SOLID Principles:
+- Single Responsibility Principle: A class should have only one reason to change
+- Open/Closed Principle: Software entities should be open for extension but closed for modification
+- Liskov Substitution Principle: Objects should be replaceable with instances of their subtypes
+- Interface Segregation Principle: Clients should not depend on interfaces they don't use
+- Dependency Inversion Principle: Depend on abstractions, not concretions
+
+Common Architectural Patterns:
+
+Layered Architecture:
+- Presentation Layer: User interface and user interaction
+- Business Layer: Business logic and rules
+- Data Access Layer: Database operations and data persistence
+- Benefits: Separation of concerns, testability, maintainability
+
+Microservices Architecture:
+- Decompose applications into small, independent services
+- Each service owns its data and business logic
+- Communicate via APIs (REST, GraphQL, messaging)
+- Benefits: Scalability, technology diversity, fault isolation
+- Challenges: Distributed system complexity, data consistency
+
+Event-Driven Architecture:
+- Components communicate through events
+- Loose coupling between producers and consumers
+- Supports real-time processing and reactive systems
+- Common patterns: Pub/Sub, Event Sourcing, CQRS
+
+Hexagonal Architecture (Ports and Adapters):
+- Business logic at the center, isolated from external concerns
+- Ports define interfaces, adapters implement them
+- Enables easy testing and technology swapping
+- Promotes dependency inversion
+
+Clean Architecture:
+- Concentric circles of dependencies
+- Inner layers independent of outer layers
+- Framework and database are details, not core
+- Emphasizes testability and maintainability

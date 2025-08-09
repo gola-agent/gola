@@ -1,0 +1,62 @@
+{
+  "title": "Database Concepts and Technologies",
+  "sections": [
+    {
+      "topic": "Relational Databases",
+      "description": "Traditional databases that store data in tables with defined relationships between them.",
+      "key_concepts": [
+        "ACID properties (Atomicity, Consistency, Isolation, Durability)",
+        "Normalization to reduce data redundancy",
+        "SQL for querying and data manipulation",
+        "Primary keys, foreign keys, and indexes"
+      ],
+      "examples": ["PostgreSQL", "MySQL", "Oracle", "SQL Server"],
+      "use_cases": [
+        "Financial systems requiring strong consistency",
+        "E-commerce applications with complex relationships",
+        "Enterprise resource planning (ERP) systems"
+      ]
+    },
+    {
+      "topic": "NoSQL Databases",
+      "description": "Non-relational databases designed for scalability and flexibility.",
+      "types": [
+        {
+          "name": "Document Stores",
+          "description": "Store data as documents (JSON, BSON)",
+          "examples": ["MongoDB", "CouchDB", "Amazon DocumentDB"],
+          "benefits": ["Schema flexibility", "Easy to scale horizontally", "Natural fit for object-oriented programming"]
+        },
+        {
+          "name": "Key-Value Stores",
+          "description": "Simple database that pairs unique keys with associated values",
+          "examples": ["Redis", "DynamoDB", "Riak"],
+          "benefits": ["High performance", "Simple data model", "Excellent for caching"]
+        },
+        {
+          "name": "Column Family",
+          "description": "Store data in column families rather than rows",
+          "examples": ["Cassandra", "HBase", "Amazon SimpleDB"],
+          "benefits": ["Efficient for analytical queries", "Good compression", "Handles wide tables well"]
+        },
+        {
+          "name": "Graph Databases",
+          "description": "Optimized for storing and querying graph structures",
+          "examples": ["Neo4j", "Amazon Neptune", "ArangoDB"],
+          "benefits": ["Excellent for relationship queries", "Social networks", "Recommendation engines"]
+        }
+      ]
+    },
+    {
+      "topic": "Database Design Principles",
+      "principles": [
+        "Choose the right database type for your use case",
+        "Design for scalability from the beginning",
+        "Consider consistency requirements (eventual vs strong)",
+        "Plan for backup and disaster recovery",
+        "Monitor performance and optimize queries",
+        "Implement proper security measures and access controls"
+      ]
+    }
+  ]
+}

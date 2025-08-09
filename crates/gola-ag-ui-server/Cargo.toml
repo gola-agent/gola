@@ -1,0 +1,49 @@
+[package]
+name = "gola-ag-ui-server"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+description = "Server-Sent Events (SSE) server implementing the ag-ui protocol"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/your-org/gola-private"
+keywords = ["sse", "ag-ui", "server", "streaming", "ai"]
+categories = ["web-programming", "asynchronous"]
+
+[dependencies]
+# Local dependencies
+gola-ag-ui-types = { path = "../gola-ag-ui-types" }
+
+# Workspace dependencies
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+log = { workspace = true }
+env_logger = { workspace = true }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+futures-util = { workspace = true }
+axum = { workspace = true }
+hyper = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+
+# Additional dependencies for SSE
+async-trait = { workspace = true }
+async-stream = "0.3"
+pin-project-lite = "0.2"
+bytes = "1.0"
+clap = { workspace = true, features = ["derive"] }
+
+# Dependencies for examples
+reqwest = { workspace = true }
+crossterm = { workspace = true }
+ratatui = { workspace = true }
+
+[dev-dependencies]
+tokio-test = "0.4"
+
+[[bin]]
+name = "gola-ag-ui-server"
+path = "src/main.rs"

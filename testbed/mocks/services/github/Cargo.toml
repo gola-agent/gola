@@ -1,0 +1,33 @@
+[package]
+name = "github-mock"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+
+[[bin]]
+name = "github-mock"
+path = "src/main.rs"
+
+[dependencies]
+axum = "0.7"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+tar = "0.4"
+flate2 = "1.0"
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "trace"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"
+anyhow = "1.0"
+uuid = { version = "1.0", features = ["v4"] }
+base64 = "0.21"
+axum-server = { version = "0.7", features = ["tls-rustls"] }
+rcgen = "0.12"
+rustls = "0.23"
+tokio-rustls = "0.26"
+
+[dev-dependencies]
+reqwest = { version = "0.11", features = ["json"] }
+tempfile = "3.0"

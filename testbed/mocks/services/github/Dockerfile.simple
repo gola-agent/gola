@@ -1,0 +1,28 @@
+FROM alpine:3.18
+
+# Install curl and ca-certificates for health checks and HTTPS
+RUN apk update && apk add --no-cache \
+    ca-certificates \
+    curl
+
+# Create app directory
+RUN mkdir -p /app /usr/local/bin
+
+# Copy the pre-built binary (will be built locally first)
+COPY github-mock /usr/local/bin/github-mock
+
+# Make binary executable
+RUN chmod +x /usr/local/bin/github-mock
+
+# Set working directory
+WORKDIR /app
+
+# Expose both HTTP and HTTPS ports
+EXPOSE 80 443
+
+# Health check using HTTP endpoint
+HEALTHCHECK --interval=5s --timeout=3s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:80/health || exit 1
+
+# Run the github-mock server
+CMD ["/usr/local/bin/github-mock"]

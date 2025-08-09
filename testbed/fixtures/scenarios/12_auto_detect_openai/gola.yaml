@@ -1,0 +1,6 @@
+# Minimal configuration for OpenAI auto-detection test
+# Only agent name is required - all other fields will use defaults
+# LLM provider will be auto-detected from OPENAI_API_KEY environment variable
+
+agent:
+  name: "OpenAI Auto-Detection Test Agent"

@@ -1,0 +1,11 @@
+# Minimal configuration for basic agent test scenario
+# Contains only the essential agent block definition
+
+agent:
+  name: "Minimal Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"

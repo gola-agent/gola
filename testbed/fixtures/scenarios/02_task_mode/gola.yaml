@@ -1,0 +1,14 @@
+# Basic gola configuration for task mode testing
+agent:
+  name: "test-agent"
+  description: "A simple agent for testing task mode functionality"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+  parameters:
+    system_message: |
+      You are a helpful assistant that provides concise answers to mathematical questions.
+      Always respond with just the answer, no explanation.

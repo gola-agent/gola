@@ -1,0 +1,13 @@
+description: "Tests that the gola server starts successfully using embedded runtime to download Python and run MCP server."
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--server-only"
+
+long_running:
+  startup_timeout_ms: 30000
+
+assertions:
+  stderr_contains: "Successfully connected to MCP server: time"

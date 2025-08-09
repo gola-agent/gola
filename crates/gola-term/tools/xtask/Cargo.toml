@@ -1,0 +1,10 @@
+[package]
+name = "xtask"
+version = "0.1.0"
+edition = "2021"
+authors.workspace = true
+publish = false
+
+[dependencies]
+anyhow = "=1.0.75"
+toml_edit = "=0.21.0"

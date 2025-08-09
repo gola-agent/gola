@@ -1,0 +1,236 @@
+[package]
+name = "gola-term"
+version = "0.1.0"
+build = "build.rs"
+edition = "2021"
+authors.workspace = true
+exclude = [
+  "tools",
+  "test",
+  ".cargo-husky/",
+  ".github/",
+  ".goreleaser.yml",
+  ".rustfmt.toml",
+  "cliff.toml",
+  "committed.toml",
+  "deny.toml"
+]
+keywords = ["cli", "llm", "chat", "tui"]
+license = "MIT"
+description = "Gola Terminal"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+dev = []
+dhat-heap = ["dep:dhat"]
+
+#[workspace]
+#members = ["tools/xtask"]
+
+[dependencies]
+gola-ag-ui-types = { path = "../gola-ag-ui-types" }
+anyhow = { version = "=1.0.98", features = ["backtrace"] }
+arboard = { version = "=3.2.1", default-features = false, features = ["wayland-data-control"] }
+async-trait = "=0.1.74"
+base64 = "=0.21.5"
+better-panic = "=0.3.0"
+bincode = "=1.3.3"
+chrono = { workspace = true, features = ["clock"] }
+clap = { version = "=4.5.40", features = ["env", "string"] }
+clap_complete = "=4.4.4"
+clap_mangen = { version = "=0.2.15" }
+crossterm = { version = "=0.27.0", features = ["bracketed-paste", "event-stream"] }
+dashmap = "=5.5.3"
+dhat = { version = "=0.3.2", optional = true }
+dialoguer = { version = "=0.10.4", default-features = false, features = ["editor"] }
+dirs = "=5.0.0"
+dirs-sys = "=0.4.0" # Pinned sub dependency to avoid poor choices in later versions.
+futures = "=0.3.31"
+itertools = "=0.11.0"
+once_cell = "=1.21"
+ratatui = "=0.29.0"
+tui-textarea = { version = "=0.7.0", default-features = false, features = ["crossterm", "ratatui"] }
+regex = "=1.10.3"
+reqwest = { version = "=0.11.22", default-features = false, features = [
+  "stream",
+  "json",
+  "gzip",
+  "rustls-tls-native-roots"
+] }
+serde = { version = "=1.0.193", features = ["derive"] }
+serde_json = "=1.0.107"
+serde_yaml = "=0.9.27"
+strum = { version = "=0.25.0", features = ["derive"] }
+strum_macros = "=0.25.0"
+syntect = { version = "=5.1.0", default-features = false, features = [
+  "parsing",
+  "plist-load",
+  "regex-onig"
+] }
+tokio = { workspace = true, features = ["fs", "macros", "rt-multi-thread", "sync", "process"] }
+tokio-util = "=0.7.9"
+toml_edit = "=0.21.0"
+tracing = { version = "=0.1.40", default-features = false, features = ["std", "log"] }
+tracing-appender = "=0.2.3"
+tracing-subscriber = { version = "=0.3.18", default-features = false, features = ["json"] }
+uuid = { version = "=1.6.1", features = ["v4"] }
+yansi = "=0.5.1"
+
+# Fix for cargo-about
+[target.'cfg(target_os="macos")'.dependencies]
+errno = "^0.3.8"
+
+[dev-dependencies]
+cargo-husky = { version = "=1.5.0", default-features = false, features = ["user-hooks"] }
+insta = { version = "=1.34.0", features = ["toml", "yaml"] }
+mockito = "=1.2.0"
+tempfile = "=3.8.1"
+test_utils = { path = "./test/utils" }
+
+[build-dependencies]
+anyhow = "=1.0.98"
+bincode = "=1.3.3"
+flate2 = "^1.1.1"
+glob-match = "=0.2.1"
+reqwest = { version = "=0.11.22", default-features = false, features = [
+  "blocking",
+  "rustls-tls-native-roots"
+] }
+serde = { version = "=1.0.193", features = ["derive"] }
+syntect = { version = "=5.1.0", default-features = false, features = [
+  "parsing",
+  "default-syntaxes",
+  "plist-load",
+  "yaml-load",
+  "regex-onig"
+] }
+tar = "=0.4.40"
+toml = "=0.5.11"
+vergen = { version = "=8.2.5", features = ["build", "git", "gitcl"] }
+walkdir = { version = "=2.4.0" }
+
+[package.metadata.bin]
+cargo-about = { version = "0.6.0", locked = true }
+cargo-binstall = { version = "1.4.9", git = "https://github.com/dustinblackman/cargo-binstall", rev = "ce72b764eeeceab8bce907cb3d4ffedff7e1e7e3" }
+cargo-cmd = { version = "0.3.1", locked = true }
+cargo-deny = { version = "0.14.2", locked = true }
+cargo-gha = { version = "1.0.2", locked = true }
+cargo-insta = { version = "1.34.0", locked = true }
+cargo-llvm-cov = { version = "0.5.25", locked = true }
+cargo-nextest = { version = "0.9.59", locked = true }
+cargo-watch = { version = "8.4.0", locked = true }
+cargo-xwin = { version = "0.16.2", locked = true }
+cargo-zigbuild = { version = "0.18.1", locked = true }
+committed = { version = "1.0.20", locked = true }
+flamegraph = { version = "0.5.1", bins = ["cargo-flamegraph"], locked = true }
+git-cliff = { version = "1.3.1", locked = true }
+mise = { version = "2024.1.20", locked = true }
+samply = { version = "0.11.0", locked = true }
+
+# Profiles are now in workspace root Cargo.toml
+
+[package.metadata.gha]
+targets = ["aarch64-apple-darwin"]
+
+[[package.metadata.gha.assets]]
+owner_repo = "goreleaser/goreleaser"
+tag = "v1.23.0"
+binaries = ["goreleaser"]
+target_archives = { aarch64-apple-darwin = "goreleaser_Darwin_arm64.tar.gz" }
+
+[[package.metadata.gha.assets]]
+owner_repo = "cli/cli"
+tag = "v2.40.1"
+binaries = ["gh"]
+target_archives = { aarch64-apple-darwin = "gh_{NOVTAG}_macOS_arm64.zip" }
+
+[package.metadata.commands]
+build-completions = '''set -e
+  rm -rf completions
+  mkdir completions
+  ./target/debug/gola-term completions -s zsh > completions/gola-term.zsh
+  ./target/debug/gola-term completions -s bash > completions/gola-term.bash
+  ./target/debug/gola-term completions -s fish > completions/gola-term.fish
+'''
+
+dev = '''set -e
+  cargo watch -i .cargo -s 'cargo run --features dev -- --model=codellama:latest'
+'''
+
+dev-install = '''set -e
+  cargo build --release
+  rm -f $HOME/.cargo/bin/gola-term
+  mv ./target/release/gola-term $HOME/.cargo/bin/
+'''
+
+lint = '''set -e
+  cargo cmd setup-nightly
+  cargo +gola-term-nightly fmt -- --check
+  cargo clippy
+  cargo deny check licenses -s
+  cargo bin mise install
+  cargo bin mise x -C tools/node -- npm ci
+  cargo bin mise x -C tools/node -- npm run prettier-check
+'''
+
+lint-fix = '''set -e
+  cargo cmd setup-nightly
+  cargo clippy --fix --allow-dirty
+  cargo fix --allow-dirty
+  cargo +gola-term-nightly fmt
+  cargo bin mise install
+  cargo bin mise x -C tools/node -- npm ci
+  cargo bin mise x -C tools/node -- npm run prettier-write
+'''
+
+get-nightly-name = 'echo gola-term-nightly'
+setup-nightly = '''
+  export NIGHTLY=nightly-2023-06-16
+  rustup toolchain list -v | grep -q "$NIGHTLY" || rustup toolchain install "$NIGHTLY" --force --component llvm-tools-preview rustfmt
+  rustup toolchain link gola-term-nightly "$(rustup toolchain list -v | grep $NIGHTLY | grep '^nightly-' | awk '{print $2}')"
+'''
+
+release = '''
+  ./tools/release.sh
+'''
+
+insta = '''set -e
+  cargo insta test --bins --test-runner nextest || cargo insta review
+'''
+
+setup = '''set -e
+  cargo bin --install
+  cargo cmd setup-nightly
+  cargo cmd test
+'''
+
+test = '''set -e
+  cargo nextest run
+'''
+
+test-coverage = '''set -e
+  cargo llvm-cov nextest --ignore-filename-regex='_test.rs'
+'''
+test-coverage-html = '''set -e
+  cargo llvm-cov nextest --open --ignore-filename-regex='_test.rs'
+'''
+test-coverage-lcov = '''set -e
+  rm -f lcov.info
+  cargo llvm-cov nextest --lcov --output-path lcov.info --ignore-filename-regex='_test.rs'
+'''
+test-coverage-ci = '''set -e
+  cargo llvm-cov nextest --html --output-dir ./coverage --ignore-filename-regex='_test.rs'
+'''
+test-watch = '''set -e
+  cargo watch -i .cargo -x 'cmd test'
+'''
+
+thirdparty = '''set -e
+  cargo deny check licenses
+  ./tools/thirdparty/run.sh
+'''
+
+top = '''
+  top -pid $(ps aux | grep 'target\/release\/gola-term' | awk '{print $2}')
+'''

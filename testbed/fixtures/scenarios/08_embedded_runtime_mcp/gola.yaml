@@ -1,0 +1,19 @@
+# Minimal configuration for embedded runtime MCP test scenario
+# Tests MCP server initialization using embedded Python runtime with automatic installation
+
+agent:
+  name: "Embedded Runtime MCP Test Agent"
+
+llm:
+  provider: openai
+  model: "gpt-4o-mini"
+  auth:
+    api_key_env: "OPENAI_API_KEY"
+mcp_servers:
+  - name: "time"
+    execution_type:
+      type: runtime
+      runtime: "python"  
+      entry_point: "mcp-server-time"
+      args: ["--local-timezone", "UTC"]
+      env: {}

@@ -1,0 +1,13 @@
+# scenario.yaml (for testing task mode functionality)
+description: "Tests that the gola --task mode executes a simple task and outputs result to stdout."
+
+command:
+  - "/usr/local/bin/gola"
+  - "--config"
+  - "/test/gola.yaml"
+  - "--task"
+  - "What is 2 + 2? Please respond with just the number."
+
+assertions:
+  exit_code: 0
+  stdout_contains: "4"
