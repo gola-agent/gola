@@ -7,7 +7,3 @@ rustflags = [
 rustflags = [
   "-C", "link-arg=-mmacosx-version-min=11.0",
 ]
-
-[env]
-# Force static linking of lzma on macOS
-LZMA_API_STATIC = "1"
