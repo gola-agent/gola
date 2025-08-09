@@ -74,6 +74,7 @@ jobs:
           fi
 
       - name: Build binary
+        shell: bash
         env:
           CARGO_TARGET_X86_64_APPLE_DARWIN_RUSTFLAGS: "-C link-arg=-mmacosx-version-min=10.15"
           CARGO_TARGET_AARCH64_APPLE_DARWIN_RUSTFLAGS: "-C link-arg=-mmacosx-version-min=11.0"
