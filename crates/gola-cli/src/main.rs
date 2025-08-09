@@ -20,7 +20,7 @@ enum RunMode {
 }
 
 #[derive(Parser, Debug)]
-#[clap(author, version, about = "Gola - An agent server")]
+#[clap(author, version, about = "Gola LLM Agent Runtime")]
 struct Cli {
     #[clap(subcommand)]
     command: Option<Commands>,
@@ -42,15 +42,10 @@ struct Cli {
     #[clap(long, help = "Enable the debug panel in the Gola Terminal UI")]
     term_debug_panel: bool,
 
-    #[clap(
-        long,
-        help = "Disable tool authorization checks (tools will be allowed to run without prompting)"
-    )]
-    no_tool_auth: bool,
 
     #[clap(
         long,
-        help = "Use embedded terminal instead of launching separate window"
+        help = "Run both server and terminal UI in the same process (default mode)"
     )]
     embedded: bool,
 
@@ -89,12 +84,10 @@ enum Commands {
         #[clap(long, help = "Enable the debug panel in the Gola Terminal UI")]
         term_debug_panel: bool,
 
-        #[clap(long, help = "Disable tool authorization checks")]
-        no_tool_auth: bool,
 
         #[clap(
             long,
-            help = "Use embedded terminal instead of launching separate window"
+            help = "Run both server and terminal UI in the same process (default mode)"
         )]
         embedded: bool,
 
@@ -283,7 +276,6 @@ async fn main() -> Result<()> {
             config,
             bind_addr,
             term_debug_panel,
-            no_tool_auth,
             embedded: _,
             server_only: _,
             terminal_only: _,
@@ -300,7 +292,6 @@ async fn main() -> Result<()> {
                 bind_addr,
                 mode,
                 term_debug_panel || cli.term_debug_panel,
-                no_tool_auth || cli.no_tool_auth,
                 server_url,
                 task_prompt,
             )
@@ -316,7 +307,6 @@ async fn main() -> Result<()> {
                 cli.bind_addr,
                 mode,
                 cli.term_debug_panel,
-                cli.no_tool_auth,
                 cli.server_url,
                 cli.task,
             )
@@ -330,7 +320,6 @@ async fn run_gola(
     bind_addr: String,
     mode: RunMode,
     _term_debug_panel: bool,
-    no_tool_auth: bool,
     server_url: String,
     task_prompt: Option<String>,
 ) -> Result<()> {
@@ -402,13 +391,9 @@ async fn run_gola(
         .with_bind_addr(bind_socket_addr)
         .with_logging(enable_server_logging);
 
-    // Disable tool authorization if explicitly requested or in embedded mode
-    if no_tool_auth || matches!(mode, RunMode::Embedded) {
-        let reason = if matches!(mode, RunMode::Embedded) {
-            "automatically disabled in embedded mode (gola-term doesn't support authorization UI)"
-        } else {
-            "explicitly disabled via --no-tool-auth flag"
-        };
+    // Disable tool authorization in embedded mode
+    if matches!(mode, RunMode::Embedded) {
+        let reason = "automatically disabled in embedded mode (gola-term doesn't support authorization UI)";
         log::warn!("Tool authorization is disabled ({}). All tool calls will be allowed without prompting.", reason);
         agent_handler
             .set_authorization_config(gola_ag_ui_server::AuthorizationConfig {
